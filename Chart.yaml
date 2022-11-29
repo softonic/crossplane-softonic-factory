@@ -1,0 +1,6 @@
+apiVersion: v2
+name: crossplane-softonic-factory
+description: Crossplane typical templates you'll need in your projects
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

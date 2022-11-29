@@ -1,0 +1,15 @@
+{{- if .Values.ProjectIAMMember.create -}}
+apiVersion: cloudplatform.gcp.upbound.io/v1beta1
+kind: ProjectIAMMember
+metadata:
+  name: {{ include "crossplane.fullname" . }}
+  labels:
+    {{- include "crossplane.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    member: "serviceAccount:{{ .Release.Name }}@{{ required "Required GCP Project value" .Values.gcpProject }}.iam.gserviceaccount.com"
+    role: "{{ required "Required role value .Values.ProjectIAMMember.role" .Values.ProjectIAMMember.role }}"
+    project: {{ required "Required GCP Project value" .Values.gcpProject }}
+  providerConfigRef:
+    name: {{ required "A valid .Values.providerConfigRef entry required" .Values.providerConfigRef }}
+{{- end }}

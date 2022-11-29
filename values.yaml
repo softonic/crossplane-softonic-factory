@@ -1,0 +1,15 @@
+#gcpProject:
+#providerConfigRef:
+
+ProjectIAMMember:
+  create: false
+  role: "" # "roles/secretmanager.secretAccessor"
+
+ServiceAccount:
+  create: false
+  deletionPolicy: Delete
+
+ServiceAccountKey:
+  create: false
+  deletionPolicy: Delete
+

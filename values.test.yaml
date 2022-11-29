@@ -1,0 +1,15 @@
+gcpProject: my-google-project
+providerConfigRef: gcp-my-google-project
+
+ProjectIAMMember:
+  create: true
+  role: "roles/secretmanager.secretAccessor"
+
+ServiceAccount:
+  create: true
+  deletionPolicy: Delete
+
+ServiceAccountKey:
+  create: true
+  deletionPolicy: Delete
+
