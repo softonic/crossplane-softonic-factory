@@ -20,10 +20,15 @@ helm template my-example-release --namespace my-example-namespace . -f values.ya
 Once you do your changes and they are approved via PR you'll need to upload this to our public charts repository.
 
 ```shell
-helm cm-push . softonic-public
+make publish
 ```
 
-NOTE: You'll need permissions to write to the helm repository.
+### Dependencies
+- You'll need permissions to write to the helm repository
+- `yq` as dependency
+- make
+- helm
+- helm push plugin
 
 ## Usage
 
