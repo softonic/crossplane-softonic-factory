@@ -1,3 +1,6 @@
+nameOverride: "my-example"
+fullnameOverride: "my-example-fullname"
+
 gcpProject: my-google-project
 providerConfigRef: gcp-my-google-project
 
@@ -8,6 +11,7 @@ ProjectIAMMember:
 ServiceAccount:
   create: true
   deletionPolicy: Delete
+  description: "My Service Account Description!"
 
 ServiceAccountKey:
   create: true
