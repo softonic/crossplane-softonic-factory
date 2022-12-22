@@ -1,19 +1,26 @@
-nameOverride: "my-example"
-fullnameOverride: "my-example-fullname"
+#nameOverride: "my-example"
+#fullnameOverride: "my-example-fullname"
 
 gcpProject: my-google-project
 providerConfigRef: gcp-my-google-project
 
-ProjectIAMMember:
-  create: true
-  role: "roles/secretmanager.secretAccessor"
+ServiceAccounts:
+  name1:
+    deletionPolicy: Delete
+    description: "My Service Account 1 Description!"
+  name2:
+    deletionPolicy: Rebuena
+    description: "My Service Account 2 Description!"
 
-ServiceAccount:
-  create: true
-  deletionPolicy: Delete
-  description: "My Service Account Description!"
-
-ServiceAccountKey:
-  create: true
-  deletionPolicy: Delete
-
+ServiceAccountKeys:
+  name1:
+    deletionPolicy: Delete
+  name2:
+    deletionPolicy: Rebuena
+ProjectIAMMembers:
+  name1:
+    deletionPolicy: Delete
+    role: "roles/secretmanager.secretAccessor"
+  name2:
+    deletionPolicy: Rebuena
+    role: "roles/secretmanager.secretAccessor"
