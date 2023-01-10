@@ -8,7 +8,7 @@ metadata:
     softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}-project-iam-member
 spec:
   forProvider:
-    member: "serviceAccount: {{ include "crossplane.fullname" $ }}--{{ $key }}@{{ required "Required GCP Project value" $.Values.gcpProject }}.iam.gserviceaccount.com"
+    member: "serviceAccount:{{ include "crossplane.fullname" $ }}--{{ $key }}@{{ required "Required GCP Project value" $.Values.gcpProject }}.iam.gserviceaccount.com"
     role: "{{ required "Required role value $value.role" $value.role }}"
     project: {{ required "Required GCP Project value" $.Values.gcpProject }}
   providerConfigRef:
