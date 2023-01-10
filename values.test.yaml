@@ -1,5 +1,5 @@
 #nameOverride: "my-example"
-#fullnameOverride: "my-example-fullname"
+fullnameOverride: "myfullname"
 
 gcpProject: my-google-project
 providerConfigRef: gcp-my-google-project
