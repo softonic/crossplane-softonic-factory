@@ -1,15 +1,16 @@
-{{- if .Values.ProjectIAMMember.create -}}
+{{- range $key, $value := $.Values.ProjectIAMMembers -}}
+---
 apiVersion: cloudplatform.gcp.upbound.io/v1beta1
 kind: ProjectIAMMember
 metadata:
-  name: {{ include "crossplane.fullname" . }}
+  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
   labels:
-    {{- include "crossplane.labels" . | nindent 4 }}
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}-project-iam-member
 spec:
   forProvider:
-    member: "serviceAccount:{{ include "crossplane.fullname" . }}@{{ required "Required GCP Project value" .Values.gcpProject }}.iam.gserviceaccount.com"
-    role: "{{ required "Required role value .Values.ProjectIAMMember.role" .Values.ProjectIAMMember.role }}"
-    project: {{ required "Required GCP Project value" .Values.gcpProject }}
+    member: "serviceAccount: {{ include "crossplane.fullname" $ }}--{{ $key }}@{{ required "Required GCP Project value" $.Values.gcpProject }}.iam.gserviceaccount.com"
+    role: "{{ required "Required role value $value.role" $value.role }}"
+    project: {{ required "Required GCP Project value" $.Values.gcpProject }}
   providerConfigRef:
-    name: {{ required "A valid .Values.providerConfigRef entry required" .Values.providerConfigRef }}
-{{- end }}
+    name: {{ required "A valid $.Values.providerConfigRef entry required" $.Values.providerConfigRef }}
+{{ end -}}
