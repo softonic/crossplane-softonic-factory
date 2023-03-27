@@ -1,0 +1,27 @@
+{{- range $key, $value := $.Values.DatabaseUsers -}}
+---
+apiVersion: sql.gcp.upbound.io/v1beta1
+kind: User
+metadata:
+  name: {{ $key }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  annotations:
+    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+  {{- with $.Values.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  providerConfigRef:
+    name: {{ $.Values.providerConfigRef }}
+  forProvider:
+    instanceRef:
+      name: {{ $value.databaseInstance }}
+    {{- with $value.passwordSecretRef }}
+    passwordSecretRef:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+{{ end -}}

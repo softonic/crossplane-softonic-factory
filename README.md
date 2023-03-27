@@ -17,7 +17,7 @@ helm template my-example-release --namespace my-example-namespace . -f values.ya
 
 ## Deploy
 
-Once you do your changes and they are approved via PR you'll need to upload this to our public charts repository.
+Once you are done with your changed and they are approved via PR you'll need to upload this to our public charts repository.
 
 ```shell
 make publish
@@ -37,7 +37,7 @@ Remember to add this as a subchart to your project chart:
 ```yaml
 dependencies:
 - name: crossplane-softonic-factory
-  version: 1.0.0
+  version: 1.1.0
   repository: https://charts.softonic.io
   apiVersion: v2
 ```

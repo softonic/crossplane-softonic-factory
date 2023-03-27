@@ -1,7 +1,7 @@
-{{- range $key, $value := $.Values.ServiceAccounts -}}
+{{- range $key, $value := $.Values.DatabaseInstances -}}
 ---
-apiVersion: cloudplatform.gcp.upbound.io/v1beta1
-kind: ServiceAccount
+apiVersion: sql.gcp.upbound.io/v1beta1
+kind: DatabaseInstance
 metadata:
   name: {{ include "crossplane.fullname" $ }}--{{ $key }}
   labels:
@@ -15,11 +15,14 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  deletionPolicy: {{ $value.deletionPolicy }}
-  forProvider:
-    description: {{ required "A valid $key.description entry required" $value.description }}
-    displayName: {{ include "crossplane.fullname" $ }}--{{ $key }}
-    project: {{ $.Values.gcpProject }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
+  forProvider:
+    databaseVersion: {{ $value.databaseVersion }}
+    deletionProtection: {{ $value.deletionProtection }}
+    region: {{ $value.region }}
+  {{- with $value.settings }}
+    settings:
+    {{- toYaml . | nindent 6 }}
+  {{- end }}
 {{ end -}}

@@ -24,3 +24,66 @@ ProjectIAMMembers:
   name2:
     deletionPolicy: Rebuena
     role: "roles/secretmanager.secretAccessor"
+
+ProjectIAMCustomRoles:
+  database-admin:
+    project: ""
+    externalName: database_admin
+    title: Database Admin
+    description: Custom role for administrate databases
+    providerConfigRef: provider-ref
+    permissions:
+    - cloudsql.databases.create
+    - cloudsql.databases.delete
+    - cloudsql.databases.update
+    - cloudsql.instances.create
+    - cloudsql.instances.delete
+    - cloudsql.instances.update
+    - cloudsql.users.create
+    - cloudsql.users.delete
+    - cloudsql.users.update
+
+DatabaseInstances:
+  db-name:
+    externalName: my-db-external-name
+    databaseVersion: POSTGRES_14
+    deletionProtection: true
+    region: europe-west1
+    settings:
+      - tier: db-f1-micro
+        #diskSize: 20
+        diskType: PD_SSD
+        diskAutoresize: true
+        activationPolicy: ALWAYS
+        availabilityType: ZONAL
+        #deletionProtectionEnabled: true
+        databaseFlags: [ ]
+        insightsConfig:
+          - queryInsightsEnabled: false
+        locationPreference:
+          - zone: europe-west1-b
+        ipConfiguration:
+          - privateNetwork: projects/project-name/global/networks/network-name
+            ipv4Enabled: false
+        maintenanceWindow:
+          - updateTrack: stable
+            day: 2
+            hour: 11
+        backupConfiguration:
+          - enabled: true
+            location: eu
+            pointInTimeRecoveryEnabled: true
+            transactionLogRetentionDays: 7
+            backupRetentionSettings:
+              - retainedBackups: 7
+        userLabels:
+          site: global
+          service: my-service
+
+DatabaseUsers:
+  postgres:
+    databaseInstance: db-name
+    passwordSecretRef:
+      key: postgres-password
+      name: postgresql
+      namespace: my-namespace

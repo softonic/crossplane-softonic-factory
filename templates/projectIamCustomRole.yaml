@@ -1,0 +1,32 @@
+{{- range $key, $value := $.Values.ProjectIAMCustomRoles -}}
+---
+apiVersion: cloudplatform.gcp.upbound.io/v1beta1
+kind: ProjectIAMCustomRole
+metadata:
+  name: {{ $key }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  annotations:
+    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+  {{- with $.Values.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  forProvider:
+    title: {{ $value.title }}
+    description: {{ $value.description }}
+    {{- with $value.project }}
+    project: {{ $value.project }}
+    {{- end }}
+    {{- with $value.permissions }}
+    permissions:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- with $value.providerConfigRef }}
+  providerConfigRef:
+    name: {{ $value.providerConfigRef }}
+  {{- end }}
+{{ end -}}
