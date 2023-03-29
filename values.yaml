@@ -1,16 +1,90 @@
 #gcpProject:
 #providerConfigRef:
 
-ProjectIAMMember:
-  create: false
-  role: "" # "roles/secretmanager.secretAccessor"
+labels: {}
+annotations: {}
 
-ServiceAccount:
-  create: false
-  deletionPolicy: Delete
-  # description: "Default Service Account description"
+ServiceAccounts: {}
+#  name1:
+#    deletionPolicy: Delete
+#    description: "My Service Account 1 Description!"
+#  name2:
+#    deletionPolicy: Rebuena
+#    description: "My Service Account 2 Description!"
 
-ServiceAccountKey:
-  create: false
-  deletionPolicy: Delete
+ServiceAccountKeys: {}
+#  name1:
+#    deletionPolicy: Delete
+#  name2:
+#    deletionPolicy: Rebuena
 
+ProjectIAMMembers: {}
+#  name1:
+#    deletionPolicy: Delete
+#    role: "roles/secretmanager.secretAccessor"
+#  name2:
+#    deletionPolicy: Rebuena
+#    role: "roles/secretmanager.secretAccessor"
+
+ProjectIAMCustomRoles: {}
+#  softonic_database_admin:
+#    project: ""
+#    title: Database Administration
+#    description: Custom role for administrate databases
+#    providerConfigRef: provider-name
+#    permissions:
+#    - cloudsql.databases.create
+#    - cloudsql.databases.delete
+#    - cloudsql.databases.update
+#    - cloudsql.instances.create
+#    - cloudsql.instances.delete
+#    - cloudsql.instances.update
+#    - cloudsql.users.create
+#    - cloudsql.users.delete
+#    - cloudsql.users.update
+
+DatabaseInstances: {}
+#  db-name:
+#    externalName: database_name
+#    databaseVersion: POSTGRES_14
+#    deletionProtection: true
+#    region: europe-west1
+#    settings:
+#    - tier: db-f1-micro
+#      #diskSize: 20
+#      diskType: PD_SSD
+#      diskAutoresize: true
+#      activationPolicy: ALWAYS
+#      availabilityType: ZONAL
+#      #deletionProtectionEnabled: true
+#      databaseFlags: [ ]
+#      insightsConfig:
+#        - queryInsightsEnabled: false
+#      locationPreference:
+#        - zone: europe-west1-b
+#      ipConfiguration:
+#        - privateNetwork: projects/project/global/networks/network-name
+#          ipv4Enabled: false
+#      maintenanceWindow:
+#        - updateTrack: stable
+#          day: 2
+#          hour: 11
+#      backupConfiguration:
+#        - enabled: true
+#          location: eu
+#          pointInTimeRecoveryEnabled: true
+#          transactionLogRetentionDays: 7
+#          backupRetentionSettings:
+#            - retainedBackups: 7
+#      userLabels:
+#        site: global
+#        service: my-example
+
+DatabaseUsers: {}
+#  postgres:
+#    externalName: pg_user
+#    databaseInstance: db-name
+#    passwordSecretRef:
+#      key: postgres-password
+#      name: postgresql
+#      namespace: my-namespace
