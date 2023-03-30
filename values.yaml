@@ -22,9 +22,9 @@ ProjectIAMMembers: {}
 #  name1:
 #    deletionPolicy: Delete
 #    role: "roles/secretmanager.secretAccessor"
-#  name2:
-#    deletionPolicy: Rebuena
-#    role: "roles/secretmanager.secretAccessor"
+#  bucket-staging:
+#    deletionPolicy: Delete
+#    customRole: "<role-name>"
 
 ProjectIAMCustomRoles: {}
 #  softonic_database_admin:

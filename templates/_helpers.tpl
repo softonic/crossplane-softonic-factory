@@ -49,3 +49,17 @@ Selector labels
 app.kubernetes.io/name: {{ include "crossplane.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Role definition, it could be something like:
+  role: "roles/secretmanager.secretAccessor"
+  role: "projects/<project-id>/roles/<role-name>"
+*/}}
+{{- define "crossplane.role" -}}
+{{- if .value.customRole -}}
+{{- printf "projects/%s/roles/%s" .gcpProject .value.customRole | quote }}
+{{- else }}
+{{- required "Required role value $value.role or $value.customRole" .value.role | quote }}
+{{- end }}
+{{- end }}
+

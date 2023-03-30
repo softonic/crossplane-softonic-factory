@@ -17,13 +17,6 @@ ServiceAccountKeys:
     deletionPolicy: Delete
   name2:
     deletionPolicy: Rebuena
-ProjectIAMMembers:
-  name1:
-    deletionPolicy: Delete
-    role: "roles/secretmanager.secretAccessor"
-  name2:
-    deletionPolicy: Rebuena
-    role: "roles/secretmanager.secretAccessor"
 
 ProjectIAMCustomRoles:
   database-admin:
@@ -42,6 +35,14 @@ ProjectIAMCustomRoles:
     - cloudsql.users.create
     - cloudsql.users.delete
     - cloudsql.users.update
+
+ProjectIAMMembers:
+  name1:
+    deletionPolicy: Delete
+    role: "roles/secretmanager.secretAccessor"
+  name2:
+    deletionPolicy: Rebuena
+    customRole: "database_admin"
 
 DatabaseInstances:
   db-name:
