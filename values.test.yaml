@@ -50,6 +50,9 @@ DatabaseInstances:
     databaseVersion: POSTGRES_14
     deletionProtection: true
     region: europe-west1
+    connectionSecret:
+      name: my-db-connection
+      namespace: ""
     settings:
       - tier: db-f1-micro
         #diskSize: 20

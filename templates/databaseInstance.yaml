@@ -25,4 +25,7 @@ spec:
     settings:
     {{- toYaml . | nindent 6 }}
   {{- end }}
+  writeConnectionSecretToRef:
+    name: {{ $value.connectionSecret.name }}
+    namespace: {{ default $.Release.Namespace $value.connectionSecret.namespace }}
 {{ end -}}
