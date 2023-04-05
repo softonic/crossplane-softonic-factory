@@ -61,7 +61,7 @@ DatabaseInstances:
         activationPolicy: ALWAYS
         availabilityType: ZONAL
         #deletionProtectionEnabled: true
-        databaseFlags: [ ]
+        databaseFlags: []
         insightsConfig:
           - queryInsightsEnabled: false
         locationPreference:

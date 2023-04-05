@@ -11,7 +11,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   annotations:
-    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+#    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
   {{- with $.Values.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
