@@ -37,6 +37,6 @@ Remember to add this as a subchart to your project chart:
 ```yaml
 dependencies:
 - name: crossplane-softonic-factory
-  version: 1.1.1
+  version: 1.2.0
   repository: https://charts.softonic.io
 ```
