@@ -17,6 +17,7 @@ ServiceAccountKeys:
     deletionPolicy: Delete
   name2:
     deletionPolicy: Rebuena
+    useServiceAccountId: true
 
 ProjectIAMCustomRoles:
   database-admin:
