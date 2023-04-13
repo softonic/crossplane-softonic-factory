@@ -1,6 +1,10 @@
 #nameOverride: "my-example"
 fullnameOverride: "myfullname"
 
+annotations:
+  common/first: "true"
+  common/second: "true"
+
 gcpProject: my-google-project
 providerConfigRef: gcp-my-google-project
 
@@ -39,6 +43,8 @@ ProjectIAMCustomRoles:
 
 ProjectIAMMembers:
   name1:
+    annotations:
+      specific: "true"
     deletionPolicy: Delete
     role: "roles/secretmanager.secretAccessor"
   name2:
