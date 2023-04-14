@@ -8,6 +8,12 @@ annotations:
 gcpProject: my-google-project
 providerConfigRef: gcp-my-google-project
 
+GlobalAddress:
+  externalAddress:
+    description: Just an example
+    address: 127.0.0.1
+    addressType: EXTERNAL
+
 ServiceAccounts:
   name1:
     deletionPolicy: Delete

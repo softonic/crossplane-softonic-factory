@@ -4,6 +4,9 @@
 labels: {}
 annotations: {}
 
+GlobalAddress: {}
+#  name1:
+
 ServiceAccounts: {}
 #  name1:
 #    deletionPolicy: Delete
