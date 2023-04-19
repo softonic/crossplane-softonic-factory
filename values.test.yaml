@@ -104,3 +104,42 @@ DatabaseUsers:
       key: postgres-password
       name: postgresql
       namespace: my-namespace
+
+CertificateMaps:
+  softonic-ru:
+    externalName: softonic-ru
+    deletionPolicy: Orphan
+    description: "certificate manager for softonic.ru"
+    labels:
+      softonic.io/certificateMap: softonic-ru
+CertificateMapEntries:
+  softonic-ru:
+    externalName: softonic-ru
+    deletionPolicy: Orphan
+    description: "certificate map entry for softonic.ru"
+    certificate: "softonic-ru"
+    matchLabels:
+      softonic.io/certificateMap: softonic-ru
+  wildcard-softonic-ru:
+    externalName: wildcard-softonic-ru
+    deletionPolicy: Orphan
+    description: "certificate map entry wildcard for softonic.ru"
+    certificate: "certificates/softonic-ru"
+    matchLabels:
+      softonic.io/certificateMap: softonic-ru
+Certificates:
+  softonic-ru:
+    externalName: softonic-ru
+    deletionPolicy: Orphan
+    description: "certificate manager for softonic.ru"
+    domains:
+    - '*.softonic.ru'
+    - 'softonic.ru'
+    scope: "DEFAULT"
+    dnsAuthorization: 'softonic-ru'
+dnsAuthorizations:
+  softonic-ru:
+    externalName: softonic-ru
+    deletionPolicy: Orphan
+    description: "certificate manager for softonic.ru"
+    domain: softonic.ru

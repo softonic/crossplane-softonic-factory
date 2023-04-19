@@ -95,3 +95,8 @@ DatabaseUsers: {}
 #      key: postgres-password
 #      name: postgresql
 #      namespace: my-namespace
+
+CertificateMaps: {}
+CertificateMapEntries: {}
+Certificates: {}
+dnsAuthorizations: {}

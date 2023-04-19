@@ -1,0 +1,22 @@
+{{- range $key, $value := $.Values.dnsAuthorizations -}}
+{{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+---
+apiVersion: certificatemanager.gcp.upbound.io/v1beta1
+kind: DNSAuthorization
+metadata:
+  annotations:
+    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
+spec:
+  forProvider:
+    description: {{ $value.description }}
+    domain: {{ $value.domain }}
+{{ end -}}
