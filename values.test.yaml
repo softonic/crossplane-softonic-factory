@@ -14,6 +14,13 @@ GlobalAddress:
     address: 127.0.0.1
     addressType: EXTERNAL
 
+ComputeAddress:
+  externalAddress:
+    description: Just an example
+    address: 127.0.0.1
+    addressType: EXTERNAL
+    region: us-west1
+
 ServiceAccounts:
   name1:
     deletionPolicy: Delete
