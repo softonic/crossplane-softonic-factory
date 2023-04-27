@@ -19,4 +19,6 @@ spec:
   forProvider:
     description: {{ $value.description }}
     domain: {{ $value.domain }}
+  providerConfigRef:
+    name: {{ $.Values.providerConfigRef }}
 {{ end -}}
