@@ -16,6 +16,8 @@ metadata:
   {{- end }}
   name: {{ include "crossplane.fullname" $ }}--{{ $key }}
 spec:
+  providerConfigRef:
+    name: {{ $.Values.providerConfigRef }}
   forProvider:
     certificates:
       # projects/official-provider-testing/locations/global/certificates/certificate
