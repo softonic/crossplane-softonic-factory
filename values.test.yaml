@@ -122,6 +122,7 @@ CertificateMaps:
 CertificateMapEntries:
   softonic-ru:
     externalName: softonic-ru
+    hostname: "softonic.ru"
     deletionPolicy: Orphan
     description: "certificate map entry for softonic.ru"
     certificate: "softonic-ru"
@@ -129,9 +130,10 @@ CertificateMapEntries:
       softonic.io/certificateMap: softonic-ru
   wildcard-softonic-ru:
     externalName: wildcard-softonic-ru
+    hostname: "*.softonic.ru"
     deletionPolicy: Orphan
     description: "certificate map entry wildcard for softonic.ru"
-    certificate: "certificates/softonic-ru"
+    certificate: "softonic-ru"
     matchLabels:
       softonic.io/certificateMap: softonic-ru
 Certificates:

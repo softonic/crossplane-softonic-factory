@@ -20,16 +20,12 @@ spec:
     name: {{ $.Values.providerConfigRef }}
   forProvider:
     certificates:
-      # projects/official-provider-testing/locations/global/certificates/certificate
       - projects/{{ $.Values.gcpProject }}/locations/global/certificates/{{ $value.certificate }}
     description: My acceptance test certificate map entry
-    labels:
-      acc-test: "true"
-      terraform: "true"
+    hostname: "{{ $value.hostname }}"
     mapSelector:
       matchLabels:
         {{- with $value.matchLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-    matcher: PRIMARY
 {{ end -}}
