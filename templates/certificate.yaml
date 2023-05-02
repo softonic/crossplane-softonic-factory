@@ -14,7 +14,7 @@ metadata:
   {{- with $mergedAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  name: {{ $value.resourceName | default (printf "%s--%s" (include "crossplane.fullname" $) $key) }}
 spec:
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
