@@ -19,6 +19,7 @@ spec:
   forProvider:
     description: {{ $value.description }}
     domain: {{ $value.domain }}
+    project: {{ $.Values.gcpProject }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
 {{ end -}}
