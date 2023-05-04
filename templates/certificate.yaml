@@ -22,7 +22,7 @@ spec:
     description: {{ $value.description }}
     managed:
       - dnsAuthorizations:
-          - projects/{{ $.Values.gcpProject }}/locations/global/dnsAuthorizations/{{ $value.dnsAuthorization }}
+          - projects/{{ $value.gcpProjectId }}/locations/global/dnsAuthorizations/{{ $value.dnsAuthorization }}
     {{- with $value.domains }}
         domains:
       {{- toYaml . | nindent 10 }}

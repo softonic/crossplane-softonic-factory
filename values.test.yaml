@@ -139,6 +139,7 @@ CertificateMapEntries:
 Certificates:
   softonic-ru:
     externalName: softonic-ru
+    gcpProjectId: 956089745671
     deletionPolicy: Orphan
     description: "certificate manager for softonic.ru"
     domains:
