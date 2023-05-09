@@ -1,0 +1,52 @@
+fullnameOverride: "roldyx"
+gcpProject: kubertonic-st
+providerConfigRef: crossplane-loadbalancer-creds
+
+GlobalAddress:
+  external-address:
+    description: Just an example
+    addressType: EXTERNAL
+
+ManagedSSLCertificate:
+  my-external-name:
+    domains:
+    - test.example.com.
+    - xxx.example.com.
+
+HealthCheck:
+  my-external-name:
+    checkIntervalSec: 1
+    tcpHealthCheck:
+      port: 80
+    timeoutSec: 1
+    healthyThreshold: 2
+    logConfig:
+      enable: false
+
+BackendService:
+  my-external-name:
+    healthChecksSelector: my-external-name
+    loadBalancingScheme: "EXTERNAL"
+    backend:
+      balancingMode: "RATE"
+      maxRate: 100000000
+      group: "https://www.googleapis.com/compute/beta/projects/kubertonic-st/zones/europe-west1-b/networkEndpointGroups/k8s1-3d2bc877-istio-system-standalone-neg-fhp-80-43bd33ab"
+
+URLMap:
+  my-external-name:
+    defaultService: my-external-name
+
+TargetHTTPSProxy:
+  my-external-name:
+    quicOverride: "ENABLE"
+    sslCertificates: my-external-name
+    urlMapSelector: my-external-name
+
+GlobalForwardingRule:
+  my-external-name:
+    ipAddressSelector: external-address
+    ipProtocol: TCP
+    loadBalancingScheme: EXTERNAL
+    portRange: "443"
+    target: "projects/kubertonic-st/global/targetHttpsProxies/my-external-name"
+

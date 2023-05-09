@@ -14,6 +14,20 @@ You can test that your template renders correctly executing the command:
 ```shell
 helm template my-example-release --namespace my-example-namespace . -f values.yaml -f values.test.yaml
 ```
+You can test the creation of Load Balancer executing the next command:
+
+```shell
+helm template my-example-release --namespace my-example-namespace . -f values.yaml -f values.test-lb.yaml
+# To check if all was created you can verify(in GCP) with the next urls:
+# globalAddress=https://console.cloud.google.com/networking/addresses/list?project=kubertonic-st
+# managedSslCertificate=https://console.cloud.google.com/security/ccm/list/lbCertificates?project=kubertonic-st
+# healthChecks=https://console.cloud.google.com/compute/healthChecks?referrer=search&project=kubertonic-st
+# BackendService=https://console.cloud.google.com/net-services/loadbalancing/list/backends?project=kubertonic-st
+# URLMap=https://console.cloud.google.com/net-services/loadbalancing/list/loadBalancers?project=kubertonic-st
+# TargetHTTPSProxy(Column=In use by)=https://console.cloud.google.com/security/ccm/list/lbCertificates?project=kubertonic-st
+# globalForwardingRule=https://console.cloud.google.com/net-services/loadbalancing/list/frontends?project=kubertonic-st
+
+```
 
 ## Deploy
 

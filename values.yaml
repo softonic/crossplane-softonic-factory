@@ -6,6 +6,15 @@ annotations: {}
 
 GlobalAddress: {}
 #  name1:
+ManagedSSLCertificate: {}
+
+HealthCheck: {}
+#  name1:
+BackendService: {}
+
+URLMap: {}
+
+TargetHTTPSProxy: {}
 
 ComputeAddress: {}
 
