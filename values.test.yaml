@@ -14,6 +14,11 @@ GlobalAddress:
     address: 127.0.0.1
     addressType: EXTERNAL
 
+ManagedSSLCertificate:
+  my-external-name:
+    domains:
+    - test.example.com.
+
 ComputeAddress:
   externalAddress:
     description: Just an example

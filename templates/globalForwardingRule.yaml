@@ -1,8 +1,8 @@
-{{- range $key, $value := $.Values.GlobalAddress -}}
+{{- range $key, $value := $.Values.GlobalForwardingRule -}}
 {{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
 ---
 apiVersion: compute.gcp.upbound.io/v1beta1
-kind: GlobalAddress
+kind: GlobalForwardingRule
 metadata:
   name: {{ include "crossplane.fullname" $ }}--{{ $key }}
   labels:
@@ -17,12 +17,13 @@ metadata:
   {{- end }}
 spec:
   forProvider:
-    description: {{ required "A valid $key.description entry required" $value.description }}
-    project: {{ $.Values.gcpProject }}
-    {{- if $value.address }}
-    address: {{ $value.address }}
-    {{- end }}
-    addressType: {{ $value.addressType }}
+    ipAddressSelector:
+      matchLabels:
+        softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $value.ipAddressSelector }}
+    ipProtocol: {{ $value.ipProtocol }}
+    loadBalancingScheme: {{ $value.loadBalancingScheme }}
+    portRange: "{{ $value.portRange }}"
+    target: {{ $value.target }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
 {{ end -}}
