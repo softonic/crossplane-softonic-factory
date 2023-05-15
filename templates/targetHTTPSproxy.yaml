@@ -18,8 +18,13 @@ metadata:
 spec:
   forProvider:
     quicOverride: {{ $value.quicOverride }}
+  {{- with $value.sslCertificates }}
     sslCertificates:
     - {{ $value.sslCertificates }}
+  {{- end }}
+  {{- with $value.certificateMap }}
+    certificateMap: {{ $value.certificateMap }}
+  {{- end }}
     urlMapSelector:
       matchLabels:
         softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $value.urlMapSelector }}

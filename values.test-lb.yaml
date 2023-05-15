@@ -41,6 +41,7 @@ TargetHTTPSProxy:
     quicOverride: "ENABLE"
     sslCertificates: my-external-name
     urlMapSelector: my-external-name
+    certificateMap: my-external-name
 
 GlobalForwardingRule:
   my-external-name:
@@ -49,4 +50,3 @@ GlobalForwardingRule:
     loadBalancingScheme: EXTERNAL
     portRange: "443"
     target: "projects/kubertonic-st/global/targetHttpsProxies/my-external-name"
-
