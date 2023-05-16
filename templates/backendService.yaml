@@ -21,10 +21,10 @@ spec:
       matchLabels:
         softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $value.healthChecksSelector }}
     loadBalancingScheme: {{ $value.loadBalancingScheme }}
+  {{- with $value.backend }}  
     backend:
-      - balancingMode: {{ $value.backend.balancingMode }}
-        maxRate: {{ $value.backend.maxRate }}
-        group: {{ $value.backend.group }}
+      {{- toYaml . | nindent 6 }}
+  {{- end }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
 {{ end -}}
