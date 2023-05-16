@@ -28,9 +28,9 @@ BackendService:
     healthChecksSelector: my-external-name
     loadBalancingScheme: "EXTERNAL"
     backend:
-      balancingMode: "RATE"
-      maxRate: 100000000
-      group: "https://www.googleapis.com/compute/beta/projects/kubertonic-st/zones/europe-west1-b/networkEndpointGroups/k8s1-3d2bc877-istio-system-standalone-neg-fhp-80-43bd33ab"
+      - group: "https://www.googleapis.com/compute/beta/projects/kubertonic-st/zones/europe-west1-b/networkEndpointGroups/k8s1-3d2bc877-istio-system-standalone-neg-fhp-80-43bd33ab"
+        balancingMode: "RATE"
+        maxRate: 100000000
 
 URLMap:
   my-external-name:
