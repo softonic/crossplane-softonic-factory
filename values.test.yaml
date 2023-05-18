@@ -68,6 +68,8 @@ ProjectIAMMembers:
   name2:
     deletionPolicy: Rebuena
     customRole: "database_admin"
+    type: group
+    email: core@softonic.com
 
 DatabaseInstances:
   db-name:
