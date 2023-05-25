@@ -160,3 +160,10 @@ dnsAuthorizations:
     deletionPolicy: Orphan
     description: "certificate manager for softonic.ru"
     domain: softonic.ru
+SSLCertificates:
+  filehippo-com:
+    certificateKey: filehippo.crt
+    certificateName: filehippo-crt
+    privateKey: filehippo.key
+    privateName: filehippo-key
+    namespace: filehippo
