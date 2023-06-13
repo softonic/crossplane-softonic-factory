@@ -12,6 +12,8 @@ HealthCheck: {}
 #  name1:
 BackendService: {}
 
+SecurityPolicy: {}
+
 URLMap: {}
 
 TargetHTTPSProxy: {}
