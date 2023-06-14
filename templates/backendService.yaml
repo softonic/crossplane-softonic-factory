@@ -28,6 +28,9 @@ spec:
   {{- with $value.securityPolicy }}
     securityPolicy: {{ $value.securityPolicy }}
   {{- end }}
+  {{- with $value.logConfig }}
+    logConfig: {{ $value.logConfig }}
+  {{- end }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
 {{ end -}}
