@@ -29,7 +29,8 @@ spec:
     securityPolicy: {{ $value.securityPolicy }}
   {{- end }}
   {{- with $value.logConfig }}
-    logConfig: {{ $value.logConfig }}
+    logConfig:
+      {{- toYaml . | nindent 6 }}
   {{- end }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
