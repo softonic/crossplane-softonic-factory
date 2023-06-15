@@ -31,6 +31,10 @@ BackendService:
       - group: "https://www.googleapis.com/compute/beta/projects/kubertonic-st/zones/europe-west1-b/networkEndpointGroups/k8s1-3d2bc877-istio-system-standalone-neg-fhp-80-43bd33ab"
         balancingMode: "RATE"
         maxRate: 100000000
+    securityPolicy: my-external-name
+    logConfig:
+      - enable: true
+        sampleRate: 1
 
 URLMap:
   my-external-name:
@@ -50,3 +54,33 @@ GlobalForwardingRule:
     loadBalancingScheme: EXTERNAL
     portRange: "443"
     target: "projects/kubertonic-st/global/targetHttpsProxies/my-external-name"
+
+SecurityPolicy:
+  my-external-name:
+    rule:
+      - description: "Ban IPs with more than 1000 reqs/min"
+        action: "rate_based_ban"
+        preview: false
+        priority: 10
+        match:
+          - versionedExpr: "SRC_IPS_V1"
+            config:
+              - srcIpRanges:
+                  - "*"
+        rateLimitOptions:
+          - banDurationSec: 1800
+            conformAction: "allow"
+            enforceOnKey: "IP"
+            exceedAction: "deny(429)"
+            rateLimitThreshold:
+              - count: 1000
+                intervalSec: 60
+      - description: "Default rule"
+        action: "allow"
+        preview: false
+        priority: 2147483647
+        match:
+          - versionedExpr: "SRC_IPS_V1"
+            config:
+              - srcIpRanges:
+                  - "*"
