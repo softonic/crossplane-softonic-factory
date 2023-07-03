@@ -2,6 +2,6 @@ apiVersion: v2
 name: crossplane-softonic-factory
 description: Crossplane typical templates you'll need in your projects
 type: application
-version: 1.7.0
+version: 1.7.1
 icon: https://crossplane.io/images/favicon_192x192.png
 appVersion: "1.0.0"

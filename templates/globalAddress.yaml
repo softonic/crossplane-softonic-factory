@@ -17,7 +17,9 @@ metadata:
   {{- end }}
 spec:
   forProvider:
-    description: {{ required "A valid $key.description entry required" $value.description }}
+    {{- if $value.description }}
+    description: {{ $value.description }}
+    {{- end }}
     project: {{ $.Values.gcpProject }}
     {{- if $value.address }}
     address: {{ $value.address }}
