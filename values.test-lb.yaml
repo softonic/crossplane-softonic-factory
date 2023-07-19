@@ -39,6 +39,15 @@ BackendService:
 URLMap:
   my-external-name:
     defaultService: my-external-name
+  my-external-name-redirect:
+    defaultUrlRedirect:
+      httpsRedirect: true
+      stripQuery: false
+      redirectResponseCode: MOVED_PERMANENTLY_DEFAULT
+
+TargetHTTPProxy:
+  my-external-name-80:
+    urlMapSelector: my-external-name-redirect
 
 TargetHTTPSProxy:
   my-external-name:
