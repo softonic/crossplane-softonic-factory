@@ -16,6 +16,7 @@ SecurityPolicy: {}
 
 URLMap: {}
 
+TargetHTTPProxy: {}
 TargetHTTPSProxy: {}
 
 ComputeAddress: {}

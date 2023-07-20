@@ -1,8 +1,8 @@
-{{- range $key, $value := $.Values.URLMap -}}
+{{- range $key, $value := $.Values.TargetHTTPProxy -}}
 {{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
 ---
 apiVersion: compute.gcp.upbound.io/v1beta1
-kind: URLMap
+kind: TargetHTTPProxy
 metadata:
   name: {{ include "crossplane.fullname" $ }}--{{ $key }}
   labels:
@@ -17,13 +17,12 @@ metadata:
   {{- end }}
 spec:
   forProvider:
-    {{- with $value.defaultService }}
-    defaultService: {{ $value.defaultService }}
-    {{- end }}
-    {{- with $value.defaultUrlRedirect }}
-    defaultUrlRedirect:
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
+  {{- with $value.certificateMap }}
+    certificateMap: {{ $value.certificateMap }}
+  {{- end }}
+    urlMapSelector:
+      matchLabels:
+        softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $value.urlMapSelector }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
 {{ end -}}
