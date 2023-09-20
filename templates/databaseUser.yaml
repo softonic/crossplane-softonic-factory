@@ -23,6 +23,7 @@ spec:
       name: {{ $value.databaseInstance }}
     {{- with $value.passwordSecretRef }}
     passwordSecretRef:
+      namespace: {{ $.Release.Namespace }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
 {{ end -}}
