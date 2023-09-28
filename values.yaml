@@ -108,7 +108,6 @@ DatabaseUsers: {}
 #    passwordSecretRef:
 #      key: postgres-password
 #      name: postgresql
-#      namespace: my-namespace
 
 CertificateMaps: {}
 CertificateMapEntries: {}
