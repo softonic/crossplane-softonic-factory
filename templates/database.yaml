@@ -1,0 +1,25 @@
+{{- range $key, $value := $.Values.Databases -}}
+{{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+---
+apiVersion: sql.gcp.upbound.io/v1beta1
+kind: Database
+metadata:
+  name: {{ $key }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  annotations:
+    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  providerConfigRef:
+    name: {{ $.Values.providerConfigRef }}
+  forProvider:
+    instanceSelector:
+      matchLabels:
+        softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $value.InstanceName }}
+{{ end -}}
