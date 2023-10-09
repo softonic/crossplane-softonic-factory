@@ -109,6 +109,10 @@ DatabaseUsers: {}
 #      key: postgres-password
 #      name: postgresql
 
+Databases: {}
+#  testdb:
+#    InstanceName: postgres
+
 CertificateMaps: {}
 CertificateMapEntries: {}
 Certificates: {}
