@@ -160,3 +160,15 @@ dnsAuthorizations:
     deletionPolicy: Orphan
     description: "certificate manager for softonic.ru"
     domain: softonic.ru
+Buckets:
+  sft-grafana-prod:
+    providerConfigRef: crossplane-bucket-creds
+    externalName: sft-grafana-prod
+    location: EUROPE-WEST1
+    storageClass: REGIONAL
+BucketIAMMembers:
+  grafana:
+    providerConfigRef: crossplane-bucket-creds
+    bucket: "sft-grafana-prod"
+    member: "serviceAccount:test@kubertonic.iam.gserviceaccount.com"
+    role: "projects/kubertonic/roles/softonic_storage_admin"
