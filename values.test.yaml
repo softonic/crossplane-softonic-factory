@@ -5,7 +5,7 @@ annotations:
   common/first: "true"
   common/second: "true"
 
-gcpProject: my-google-project
+gcpProject: "my-google-project"
 providerConfigRef: gcp-my-google-project
 
 GlobalAddress:
@@ -146,7 +146,7 @@ CertificateMapEntries:
 Certificates:
   softonic-ru:
     externalName: softonic-ru
-    gcpProjectId: 956089745671
+    gcpProjectId: "956089745671"
     deletionPolicy: Orphan
     description: "certificate manager for softonic.ru"
     domains:
@@ -160,6 +160,11 @@ dnsAuthorizations:
     deletionPolicy: Orphan
     description: "certificate manager for softonic.ru"
     domain: softonic.ru
+  softonic-pl:
+    externalName: softonic-pl
+    deletionPolicy: Orphan
+    description: "certificate manager for softonic.pl"
+    domain: softonic.pl
 Buckets:
   sft-grafana-prod:
     providerConfigRef: crossplane-bucket-creds
