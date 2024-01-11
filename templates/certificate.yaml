@@ -23,7 +23,7 @@ spec:
     managed:
       - dnsAuthorizations:
         {{- range $key, $val := $.Values.dnsAuthorizations }}
-        - projects/{{ $value.gcpProjectId }}/locations/global/dnsAuthorizations/{{ $val.externalName }}
+        - projects/{{ $value.gcpProjectId }}/locations/global/dnsAuthorizations/{{ $key }}
         {{- end }}
         domains:
         {{- range $key, $val := $.Values.dnsAuthorizations }}
