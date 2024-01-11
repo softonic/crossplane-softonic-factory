@@ -165,6 +165,14 @@ dnsAuthorizations:
     deletionPolicy: Orphan
     description: "certificate manager for softonic.pl"
     domain: softonic.pl
+dnsMappings:
+  - authorization: "softonic-ru"
+    domains:
+      - "softonic.ru"
+  - authorization: "softonic-pl"
+    domains:
+      - "softonic.pl"
+      - "*.softonic.pl"
 Buckets:
   sft-grafana-prod:
     providerConfigRef: crossplane-bucket-creds
