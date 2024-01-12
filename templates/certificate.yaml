@@ -22,12 +22,14 @@ spec:
     description: {{ $value.description }}
     managed:
       - dnsAuthorizations:
-        {{- range $key, $val := $.Values.dnsAuthorizations }}
-        - projects/{{ $value.gcpProjectId }}/locations/global/dnsAuthorizations/{{ $key }}
+        {{- range $.Values.dnsMappings }}
+        - projects/{{ $value.gcpProjectId }}/locations/global/dnsAuthorizations/{{ .authorization }}
         {{- end }}
         domains:
-        {{- range $key, $val := $.Values.dnsAuthorizations }}
-        - {{ $val.domain }}
+        {{- range $.Values.dnsMappings }}
+          {{- range .domains }}
+        - {{ . | quote }}
+          {{- end }}
         {{- end }}
     scope: {{ $value.scope }}
 {{ end -}}
