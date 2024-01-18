@@ -26,50 +26,77 @@ ComputeAddress:
     addressType: EXTERNAL
     region: us-west1
 
-ServiceAccounts:
-  name1:
-    deletionPolicy: Delete
-    description: "My Service Account 1 Description!"
-  name2:
-    deletionPolicy: Rebuena
-    description: "My Service Account 2 Description!"
+projects:
+  appventure-id:
+    appventure-id-creds:
+      ProviderConfig:
+        name: pepito
+        key: private_key
 
-ServiceAccountKeys:
-  name1:
-    deletionPolicy: Delete
-  name2:
-    deletionPolicy: Rebuena
-    useServiceAccountId: true
+  kubertonic:
+    crossplane-bucket-creds:
+      ProviderConfig:
+        name: crossplane--bucket-prod
+        key: private_key
 
-ProjectIAMCustomRoles:
-  database-admin:
-    project: ""
-    externalName: database_admin
-    title: Database Admin
-    description: Custom role for administrate databases
-    providerConfigRef: provider-ref
-    permissions:
-    - cloudsql.databases.create
-    - cloudsql.databases.delete
-    - cloudsql.databases.update
-    - cloudsql.instances.create
-    - cloudsql.instances.delete
-    - cloudsql.instances.update
-    - cloudsql.users.create
-    - cloudsql.users.delete
-    - cloudsql.users.update
+    crossplane-core-385109-id-creds:
+      ProviderConfig:
+        name: pepito
+        key: private_key
+      ServiceAccounts:
+        name1:
+          deletionPolicy: Delete
+          description: "My Service Account 1 Description!"
+        name2:
+          deletionPolicy: Rebuena
+          description: "My Service Account 2 Description!"
+  kubertonic-blue:
+    kubertonics-blue-creds:
+      ProviderConfig:
+        name: pepito
+        key: private_key
+      ServiceAccounts:
+        name3:
+          deletionPolicy: Delete
+          description: "My Service Account 3 Description!"
+        name4:
+          deletionPolicy: Rebuena
+          description: "My Service Account 4 Description!"
+      ServiceAccountKeys:
+        name1:
+          deletionPolicy: Delete
+        name2:
+          deletionPolicy: Rebuena
+          useServiceAccountId: true
+      ProjectIAMMembers:
+        name1:
+          annotations:
+            specific: "true"
+          deletionPolicy: Delete
+          role: "roles/secretmanager.secretAccessor"
+        name2:
+          deletionPolicy: Rebuena
+          customRole: "database_admin"
+          type: group
+          email: core@softonic.com
 
-ProjectIAMMembers:
-  name1:
-    annotations:
-      specific: "true"
-    deletionPolicy: Delete
-    role: "roles/secretmanager.secretAccessor"
-  name2:
-    deletionPolicy: Rebuena
-    customRole: "database_admin"
-    type: group
-    email: core@softonic.com
+      ProjectIAMCustomRoles:
+        database-admin:
+          externalName: database_admin
+          title: Database Admin
+          description: Custom role for administrate databases
+          providerConfigRef: provider-ref
+          permissions:
+          - cloudsql.databases.create
+          - cloudsql.databases.delete
+          - cloudsql.databases.update
+          - cloudsql.instances.create
+          - cloudsql.instances.delete
+          - cloudsql.instances.update
+          - cloudsql.users.create
+          - cloudsql.users.delete
+          - cloudsql.users.update
+
 
 DatabaseInstances:
   db-name:
