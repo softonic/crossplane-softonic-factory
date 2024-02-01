@@ -104,10 +104,14 @@ DatabaseInstances: {}
 DatabaseUsers: {}
 #  postgres:
 #    externalName: pg_user
+#    host: "%"
 #    databaseInstance: db-name
 #    passwordSecretRef:
 #      key: postgres-password
 #      name: postgresql
+#    userSecret:
+#      name: my-db-user
+#      namespace: ""
 
 Databases: {}
 #  testdb:
