@@ -15,7 +15,6 @@ spec:
     bucket: "{{ $value.bucket }}"
     member: "{{ $value.member }}"
     role: "{{ $value.role }}"
-
   providerConfigRef:
     name: {{ $value.providerConfigRef }}
 {{ end -}}

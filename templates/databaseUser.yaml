@@ -19,6 +19,9 @@ spec:
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
   forProvider:
+    {{- with $value.host }}
+    host: {{ . | quote }}
+    {{- end }}
     instanceRef:
       name: {{ $value.databaseInstance }}
     {{- with $value.passwordSecretRef }}
@@ -26,4 +29,9 @@ spec:
       namespace: {{ $.Release.Namespace }}
       {{- toYaml . | nindent 6 }}
     {{- end }}
+  {{- with $value.userSecret }}
+  writeConnectionSecretToRef:
+    name: {{ .name }}
+    namespace: {{ default $.Release.Namespace .namespace }}
+  {{- end }}
 {{ end -}}

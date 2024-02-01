@@ -118,6 +118,12 @@ DatabaseUsers:
       key: postgres-password
       name: postgresql
       namespace: my-namespace
+  mysql:
+    databaseInstance: db-name-mysql
+    host: "%"
+    userSecret:
+      name: my-db-user
+      namespace: my-namespace
 
 CertificateMaps:
   softonic-ru:
