@@ -19,7 +19,9 @@ spec:
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
   forProvider:
-    host: {{ $value.host | quote }}
+    {{- with $value.host }}
+    host: {{ . | quote }}
+    {{- end }}
     instanceRef:
       name: {{ $value.databaseInstance }}
     {{- with $value.passwordSecretRef }}
