@@ -1,0 +1,25 @@
+{{- range $key, $value := $.Values.SSLPolicy -}}
+{{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+
+apiVersion: compute.gcp.upbound.io/v1beta1
+kind: SSLPolicy
+metadata:
+  annotations:
+    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
+spec:
+  forProvider:
+    profile: {{ $value.mode }}
+    minTlsVersion: {{ $value.minTlsVersion }}
+    description: {{ $value.description }}
+  providerConfigRef:
+    name: {{ $.Values.providerConfigRef }}
+{{ end -}}

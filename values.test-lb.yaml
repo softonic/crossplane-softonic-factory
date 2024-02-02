@@ -64,6 +64,12 @@ GlobalForwardingRule:
     portRange: "443"
     target: "projects/kubertonic-st/global/targetHttpsProxies/my-external-name"
 
+SSLPolicy:
+  my-external-name:
+    mode: COMPATIBLE
+    minTlsVersion: TLS_1_2
+    description: "Just an example"
+
 SecurityPolicy:
   my-external-name:
     rule:
