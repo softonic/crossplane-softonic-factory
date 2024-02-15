@@ -25,6 +25,9 @@ spec:
   {{- with $value.certificateMap }}
     certificateMap: {{ $value.certificateMap }}
   {{- end }}
+  {{- with $value.sslPolicy }}
+    sslPolicy: {{ $value.sslPolicy }}
+  {{- end }}
     urlMapSelector:
       matchLabels:
         softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $value.urlMapSelector }}
