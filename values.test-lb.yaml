@@ -55,6 +55,7 @@ TargetHTTPSProxy:
     sslCertificates: my-external-name
     urlMapSelector: my-external-name
     certificateMap: my-external-name
+    sslPolicy: min-tls
 
 GlobalForwardingRule:
   my-external-name:
