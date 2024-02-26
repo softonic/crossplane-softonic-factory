@@ -30,17 +30,20 @@ projects:
   appventure-id:
     appventure-id-creds:
       ProviderConfig:
+        enabled: true
         name: pepito
         key: private_key
 
   kubertonic:
     crossplane-bucket-creds:
       ProviderConfig:
+        enabled: true
         name: crossplane--bucket-prod
         key: private_key
 
     crossplane-core-385109-id-creds:
       ProviderConfig:
+        enabled: true
         name: pepito
         key: private_key
       ServiceAccounts:
@@ -53,6 +56,7 @@ projects:
   kubertonic-blue:
     kubertonics-blue-creds:
       ProviderConfig:
+        enabled: true
         name: pepito
         key: private_key
       ServiceAccounts:
