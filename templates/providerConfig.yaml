@@ -1,0 +1,20 @@
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+---
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: {{ $providerConfigRefName }}
+  annotations:
+    #argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  projectID: {{ $projectName }}
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-infrastructure
+      name: {{ $providerConfigRef.ProviderConfig.name }}
+      key: {{ $providerConfigRef.ProviderConfig.key }}
+{{- end }}
+{{- end }}
