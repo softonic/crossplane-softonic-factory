@@ -1,18 +1,19 @@
-{{- range $key, $value := $.Values.ProjectIAMMembers -}}
-{{- $valueWithProject := dict "gcpProject" $.Values.gcpProject "value" $value }}
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $accountName, $value := $providerConfigRef.ProjectIAMMembers }}
+{{- $valueWithProject := dict "gcpProject" $projectName "value" $value }}
 {{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
 ---
 apiVersion: cloudplatform.gcp.upbound.io/v1beta1
 kind: ProjectIAMMember
 metadata:
-  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  name: {{ include "crossplane.fullname" $ }}--{{ $accountName }}
   labels:
-    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $accountName }}
   {{- with $.Values.labels }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
   annotations:
-#    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
   {{- with $mergedAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -21,10 +22,12 @@ spec:
 {{- if eq $value.type "group" }}
     member: "group:{{ $value.email }}"
 {{- else }}
-    member: "serviceAccount:{{ include "crossplane.fullname" $ }}--{{ $key }}@{{ required "Required GCP Project value" $.Values.gcpProject }}.iam.gserviceaccount.com"
+    member: "serviceAccount:{{ include "crossplane.fullname" $ }}--{{ $accountName }}@{{ required "Required GCP Project value" $projectName }}.iam.gserviceaccount.com"
 {{- end }}
     role: {{ include "crossplane.role" $valueWithProject }}
-    project: {{ required "Required GCP Project value" $.Values.gcpProject }}
+    project: {{ required "Required GCP Project value" $projectName }}
   providerConfigRef:
-    name: {{ required "A valid $.Values.providerConfigRef entry required" $.Values.providerConfigRef }}
+    name: {{ required "A valid $.Values.providerConfigRef entry required" $providerConfigRefName }}
+{{ end -}}
+{{ end -}}
 {{ end -}}

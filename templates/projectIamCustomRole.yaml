@@ -1,17 +1,19 @@
-{{- range $key, $value := $.Values.ProjectIAMCustomRoles -}}
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $accountName, $value := $providerConfigRef.ProjectIAMCustomRoles }}
 {{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
 ---
 apiVersion: cloudplatform.gcp.upbound.io/v1beta1
 kind: ProjectIAMCustomRole
 metadata:
-  name: {{ $key }}
+  name: {{ $accountName }}
   labels:
-    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $accountName }}
   {{- with $.Values.labels }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
   annotations:
-    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+    crossplane.io/external-name: {{ $value.externalName | default $accountName | quote }}
   {{- with $mergedAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -19,15 +21,13 @@ spec:
   forProvider:
     title: {{ $value.title }}
     description: {{ $value.description }}
-    {{- with $value.project }}
-    project: {{ $value.project }}
-    {{- end }}
+    project: {{ $projectName }}
     {{- with $value.permissions }}
     permissions:
       {{- toYaml . | nindent 6 }}
     {{- end }}
-  {{- with $value.providerConfigRef }}
   providerConfigRef:
-    name: {{ $value.providerConfigRef }}
-  {{- end }}
+    name: {{ $providerConfigRefName }}
+{{ end -}}
+{{ end -}}
 {{ end -}}
