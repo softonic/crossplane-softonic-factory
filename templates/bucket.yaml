@@ -11,6 +11,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   annotations:
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
     crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
 
 spec:
