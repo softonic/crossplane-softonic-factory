@@ -83,6 +83,10 @@ projects:
           customRole: "database_admin"
           type: group
           email: core@softonic.com
+        name3:
+          member: "serviceAccount:customUser@kubertonic.iam.gserviceaccount.com"
+          deletionPolicy: Delete
+          role: "roles/computer.viewer"
 
       ProjectIAMCustomRoles:
         database-admin:
