@@ -19,7 +19,9 @@ metadata:
   {{- end }}
 spec:
   forProvider:
-{{- if eq $value.type "group" }}
+{{- if $value.member }}
+    member: {{ $value.member }}
+{{- else if eq $value.type "group" }}
     member: "group:{{ $value.email }}"
 {{- else }}
     member: "serviceAccount:{{ include "crossplane.fullname" $ }}--{{ $accountName }}@{{ required "Required GCP Project value" $projectName }}.iam.gserviceaccount.com"
