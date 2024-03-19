@@ -104,7 +104,20 @@ projects:
           - cloudsql.users.create
           - cloudsql.users.delete
           - cloudsql.users.update
-
+      Buckets:
+        sft-grafana-prod:
+          enabled: true
+          providerConfigRef: crossplane-bucket-creds
+          externalName: sft-grafana-prod
+          location: EUROPE-WEST1
+          storageClass: REGIONAL
+      BucketIAMMembers:
+        grafana:
+          enabled: true
+          providerConfigRef: crossplane-bucket-creds
+          bucket: "sft-grafana-prod"
+          member: "serviceAccount:test@kubertonic.iam.gserviceaccount.com"
+          role: "projects/kubertonic/roles/softonic_storage_admin"
 
 DatabaseInstances:
   db-name:
@@ -214,15 +227,3 @@ dnsMappings:
     domains:
       - "softonic.pl"
       - "*.softonic.pl"
-Buckets:
-  sft-grafana-prod:
-    providerConfigRef: crossplane-bucket-creds
-    externalName: sft-grafana-prod
-    location: EUROPE-WEST1
-    storageClass: REGIONAL
-BucketIAMMembers:
-  grafana:
-    providerConfigRef: crossplane-bucket-creds
-    bucket: "sft-grafana-prod"
-    member: "serviceAccount:test@kubertonic.iam.gserviceaccount.com"
-    role: "projects/kubertonic/roles/softonic_storage_admin"

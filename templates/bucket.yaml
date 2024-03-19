@@ -1,12 +1,15 @@
-{{- range $key, $value := $.Values.Buckets -}}
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $accountName, $value := $providerConfigRef.Buckets }}
 {{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+{{- if $value.enabled }}
 ---
 apiVersion: storage.gcp.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: {{ $key }}
+  name: {{ $accountName }}
   labels:
-    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $accountName }}
   {{- with $.Values.labels }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -14,7 +17,7 @@ metadata:
   {{- with $mergedAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-    crossplane.io/external-name: {{ $value.externalName | default $key | quote }}
+    crossplane.io/external-name: {{ $value.externalName | default $accountName | quote }}
 
 spec:
   forProvider:
@@ -24,4 +27,7 @@ spec:
 
   providerConfigRef:
     name: {{ $value.providerConfigRef }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
 {{ end -}}
