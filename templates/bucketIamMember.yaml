@@ -1,12 +1,15 @@
-{{- range $key, $value := $.Values.BucketIAMMembers -}}
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $accountName, $value := $providerConfigRef.BucketIAMMembers }}
 {{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+{{- if $value.enabled }}
 ---
 apiVersion: storage.gcp.upbound.io/v1beta1
 kind: BucketIAMMember
 metadata:
-  name: {{ $key }}
+  name: {{ $accountName }}
   labels:
-    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $accountName }}
   {{- with $.Values.labels }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -21,4 +24,7 @@ spec:
     role: "{{ $value.role }}"
   providerConfigRef:
     name: {{ $value.providerConfigRef }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
 {{ end -}}
