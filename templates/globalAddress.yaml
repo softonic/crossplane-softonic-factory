@@ -4,7 +4,7 @@
 apiVersion: compute.gcp.upbound.io/v1beta1
 kind: GlobalAddress
 metadata:
-  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
+  name: {{ $key }}
   labels:
     softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
   {{- with $.Values.labels }}
