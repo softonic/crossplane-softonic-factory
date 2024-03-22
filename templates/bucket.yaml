@@ -18,12 +18,12 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
     crossplane.io/external-name: {{ $value.externalName | default $accountName | quote }}
-
 spec:
+  deletionPolicy: {{ required "Requires the deletionPolicy value to be Delete or Orphan" $value.deletionPolicy }}
   forProvider:
     location: {{ $value.location }}
     storageClass: {{ $value.storageClass }}
-    project: {{ $.Values.gcpProject }}
+    project: {{ $projectName }}
 
   providerConfigRef:
     name: {{ $value.providerConfigRef }}
