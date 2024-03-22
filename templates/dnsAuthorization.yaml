@@ -16,6 +16,7 @@ metadata:
   {{- end }}
   name: {{ include "crossplane.fullname" $ }}--{{ $key }}
 spec:
+  deletionPolicy: {{ required "Requires the deletionPolicy value to be Delete or Orphan" $value.deletionPolicy }}
   forProvider:
     description: {{ $value.description }}
     domain: {{ $value.domain }}

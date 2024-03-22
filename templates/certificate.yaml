@@ -18,7 +18,7 @@ metadata:
 spec:
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
-  deletionPolicy: {{ $value.deletionPolicy }}
+  deletionPolicy: {{ required "Requires the deletionPolicy value to be Delete or Orphan" $value.deletionPolicy }}
   forProvider:
     description: {{ $value.description }}
     location: "global"
