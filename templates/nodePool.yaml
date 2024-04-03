@@ -1,0 +1,43 @@
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $resourceName, $value := $providerConfigRef.NodePools }}
+{{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+---
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: NodePool
+metadata:
+  name: {{ $resourceName }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $resourceName }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  annotations:
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  deletionPolicy: "{{ $value.deletionPolicy }}"
+  forProvider:
+    cluster: "{{ $value.cluster }}"
+    location: "{{ $value.location }}"
+    project: "{{ $projectName }}"
+    nodeConfig:
+    {{- with $value.nodeConfig }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    autoscaling:
+    {{- with $value.autoscaling }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    management:
+    {{- with $value.management }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    nodeCount: {{ $value.nodeCount }}
+    version: {{ $value.version }}
+  providerConfigRef:
+    name: {{ $providerConfigRefName }}
+{{- end }}
+{{- end }}
+{{- end }}
