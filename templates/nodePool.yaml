@@ -35,6 +35,12 @@ spec:
       {{- toYaml . | nindent 4 }}
     {{- end }}
     nodeCount: {{ $value.nodeCount }}
+{{- if $value.upgradeSettings }}
+    upgradeSettings:
+    {{- with $value.upgradeSettings }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}
   providerConfigRef:
     name: {{ $providerConfigRefName }}
 {{- end }}
