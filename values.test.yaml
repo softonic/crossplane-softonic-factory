@@ -79,6 +79,12 @@ projects:
             autoRepair: true
           nodeCount: 1
           version: 1.25.16-gke.1041000
+          upgradeSettings:
+          - blueGreenSettings:
+              nodePoolSoakDuration: 3600
+              standardRolloutPolicy:
+                - batchNodeCount: 1
+                  batchSoakDuration: 0
     kubertonics-blue-creds:
       ProviderConfig:
         enabled: true
