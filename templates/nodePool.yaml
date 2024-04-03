@@ -35,7 +35,6 @@ spec:
       {{- toYaml . | nindent 4 }}
     {{- end }}
     nodeCount: {{ $value.nodeCount }}
-    version: {{ $value.version }}
   providerConfigRef:
     name: {{ $providerConfigRefName }}
 {{- end }}
