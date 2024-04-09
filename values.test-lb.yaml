@@ -4,17 +4,20 @@ providerConfigRef: crossplane-loadbalancer-creds
 
 GlobalAddress:
   external-address:
+    deletionPolicy: Orphan
     description: Just an example
     addressType: EXTERNAL
 
 ManagedSSLCertificate:
   my-external-name:
+    deletionPolicy: Delete
     domains:
     - test.example.com.
     - xxx.example.com.
 
 HealthCheck:
   my-external-name:
+    deletionPolicy: Delete
     checkIntervalSec: 1
     tcpHealthCheck:
       port: 80
@@ -25,6 +28,7 @@ HealthCheck:
 
 BackendService:
   my-external-name:
+    deletionPolicy: Delete
     healthChecksSelector: my-external-name
     loadBalancingScheme: "EXTERNAL"
     backend:
@@ -38,8 +42,10 @@ BackendService:
 
 URLMap:
   my-external-name:
+    deletionPolicy: Orphan
     defaultService: my-external-name
   my-external-name-redirect:
+    deletionPolicy: Orphan
     defaultUrlRedirect:
       httpsRedirect: true
       stripQuery: false
@@ -47,10 +53,12 @@ URLMap:
 
 TargetHTTPProxy:
   my-external-name-80:
+    deletionPolicy: Delete
     urlMapSelector: my-external-name-redirect
 
 TargetHTTPSProxy:
   my-external-name:
+    deletionPolicy: Delete
     quicOverride: "ENABLE"
     sslCertificates: my-external-name
     urlMapSelector: my-external-name
@@ -59,6 +67,7 @@ TargetHTTPSProxy:
 
 GlobalForwardingRule:
   my-external-name:
+    deletionPolicy: Delete
     ipAddressSelector: external-address
     ipProtocol: TCP
     loadBalancingScheme: EXTERNAL
@@ -67,12 +76,14 @@ GlobalForwardingRule:
 
 SSLPolicy:
   my-external-name:
+    deletionPolicy: Delete
     mode: COMPATIBLE
     minTlsVersion: TLS_1_2
     description: "Just an example"
 
 SecurityPolicy:
   my-external-name:
+    deletionPolicy: Delete
     rule:
       - description: "Ban IPs with more than 1000 reqs/min"
         action: "rate_based_ban"

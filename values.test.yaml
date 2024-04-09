@@ -9,17 +9,20 @@ providerConfigRef: gcp-my-google-project
 
 GlobalAddress:
   externalAddress:
+    deletionPolicy: Orphan
     description: Just an example
     address: 127.0.0.1
     addressType: EXTERNAL
 
 ManagedSSLCertificate:
   my-external-name:
+    deletionPolicy: Orphan
     domains:
     - test.example.com.
 
 ComputeAddress:
   externalAddress:
+    deletionPolicy: Orphan
     description: Just an example
     address: 127.0.0.1
     addressType: EXTERNAL
@@ -121,6 +124,7 @@ projects:
 
       ProjectIAMCustomRoles:
         database-admin:
+          deletionPolicy: Orphan
           externalName: database_admin
           title: Database Admin
           description: Custom role for administrate databases
@@ -138,6 +142,7 @@ projects:
       Buckets:
         sft-grafana-prod:
           enabled: true
+          deletionPolicy: Orphan
           providerConfigRef: crossplane-bucket-creds
           externalName: sft-grafana-prod
           location: EUROPE-WEST1
@@ -145,6 +150,7 @@ projects:
       BucketIAMMembers:
         grafana:
           enabled: true
+          deletionPolicy: Orphan
           providerConfigRef: crossplane-bucket-creds
           bucket: "sft-grafana-prod"
           member: "serviceAccount:test@kubertonic.iam.gserviceaccount.com"
@@ -192,12 +198,14 @@ DatabaseInstances:
 
 DatabaseUsers:
   postgres:
+    deletionPolicy: Orphan
     databaseInstance: db-name
     passwordSecretRef:
       key: postgres-password
       name: postgresql
       namespace: my-namespace
   mysql:
+    deletionPolicy: Orphan
     databaseInstance: db-name-mysql
     host: "%"
     userSecret:

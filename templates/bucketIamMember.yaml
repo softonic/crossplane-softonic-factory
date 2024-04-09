@@ -18,6 +18,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  deletionPolicy: {{ required "Requires the deletionPolicy value to be Delete or Orphan" $value.deletionPolicy }}
   forProvider:
     bucket: "{{ $value.bucket }}"
     member: "{{ $value.member }}"
