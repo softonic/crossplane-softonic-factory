@@ -26,20 +26,26 @@ spec:
     {{- with $value.nodeConfig }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-    autoscaling:
-    {{- with $value.autoscaling }}
-      {{- toYaml . | nindent 4 }}
-    {{- end }}
     management:
     {{- with $value.management }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-    nodeCount: {{ $value.nodeCount }}
 {{- if $value.upgradeSettings }}
     upgradeSettings:
     {{- with $value.upgradeSettings }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
+{{- end }}
+{{- if not $value.autoscaling }}
+    nodeCount: {{ $value.nodeCount }}
+{{- end }}
+  initProvider:
+{{- if $value.autoscaling }}
+    autoscaling:
+    {{- with $value.autoscaling }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    initialNodeCount: 1
 {{- end }}
   providerConfigRef:
     name: {{ $providerConfigRefName }}
