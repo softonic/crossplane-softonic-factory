@@ -74,9 +74,9 @@ projects:
             - effect: "NO_SCHEDULE"
               key: type
               value: prometheus
-          autoscaling:
-          - minNodeCount: 1
-            maxNodeCount: 5
+          #autoscaling:
+          #- minNodeCount: 1
+          #  maxNodeCount: 5
           management:
           - autoUpgrade: true
             autoRepair: true
