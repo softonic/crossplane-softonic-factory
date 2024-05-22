@@ -61,7 +61,10 @@ projects:
         enabled: false
       NodePools:
         prometheus:
-          deletionPolicy: Orphan
+          managementPolicies:
+          - Create
+          - Update
+          - Observe
           cluster: test-roldyx-try40
           location: europe-west1-b
           nodeConfig:
