@@ -1,0 +1,77 @@
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $resourceName, $value := $providerConfigRef.Clusters }}
+{{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+---
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  name: {{ $resourceName }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $resourceName }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  annotations:
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  deletionPolicy: null
+  managementPolicies:
+    {{- with $value.managementPolicies }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  forProvider:
+    networkingMode: VPC_NATIVE
+    costManagementConfig:
+    - enabled: true
+    defaultMaxPodsPerNode: 110
+    clusterIpv4Cidr: {{ $value.clusterIpv4Cidr }}
+    ipAllocationPolicy:
+    - clusterIpv4CidrBlock: {{ $value.clusterIpv4Cidr }}
+    #- servicesIpv4CidrBlock: "10.236.0.0/20"
+    masterAuth:
+    - clientCertificateConfig:
+      - issueClientCertificate: true
+    masterAuthorizedNetworksConfig:
+    {{- with $value.masterAuthorizedNetworksConfig }}
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    serviceExternalIpsConfig:
+    - enabled: true
+    networkPolicy:
+    - provider: CALICO
+      enabled: true
+    description: {{ $value.description }}
+    location: {{ $value.location }}
+    enableKubernetesAlpha: false
+    loggingService: "logging.googleapis.com/kubernetes"
+    monitoringService: "monitoring.googleapis.com/kubernetes"
+    enableShieldedNodes: false
+    verticalPodAutoscaling:
+      - enabled: false
+    removeDefaultNodePool: true
+    addonsConfig:
+      - httpLoadBalancing:
+        - disabled: false
+      - gcePersistentDiskCsiDriverConfig:
+        - enabled: true
+      - networkPolicyConfig:
+        - disabled: true
+    network: {{ $value.network }}
+    subnetwork: {{ $value.subnetwork }}
+    releaseChannel:
+    - channel: UNSPECIFIED
+    clusterAutoscaling:
+    - autoProvisioningDefaults:
+      - management:
+        - autoUpgrade: false
+  initProvider:
+    minMasterVersion: {{ $value.minMasterVersion }}
+    initialNodeCount: 1 #must be greater than zero
+  providerConfigRef:
+    name: {{ $providerConfigRefName }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -158,6 +158,29 @@ projects:
           bucket: "sft-grafana-prod"
           member: "serviceAccount:test@kubertonic.iam.gserviceaccount.com"
           role: "projects/kubertonic/roles/softonic_storage_admin"
+      Clusters:
+        product-europe:
+          managementPolicies:
+            - Create
+            - Delete
+            - Observe
+          clusterIpv4Cidr: "10.52.0.0/14"
+          masterAuthorizedNetworksConfig:
+            cidrBlocks:
+            - cidrBlock: 46.28.212.253/32
+              displayName: Office-1
+            - cidrBlock: 46.28.212.254/32
+              displayName: Office-2
+            - cidrBlock: 46.28.210.244/32
+              displayName: Office-VPN
+            - cidrBlock: 188.85.135.94/32
+              displayName: Office-backup-VPN
+            gcpPublicCidrsAccessEnabled: true
+          description: "EU cluster Product"
+          location: europe-west1-b
+          network: "softonic-network-eu-west"
+          subnetwork: "bigbang"
+          minMasterVersion: 1.26.15-gke.1090000
 
 DatabaseInstances:
   db-name:
@@ -269,3 +292,4 @@ dnsMappings:
     domains:
       - "softonic.pl"
       - "*.softonic.pl"
+
