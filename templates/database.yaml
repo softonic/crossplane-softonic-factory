@@ -4,7 +4,7 @@
 apiVersion: sql.gcp.upbound.io/v1beta1
 kind: Database
 metadata:
-  name: {{ $key }}
+  name: {{ include "crossplane.fullname" $ }}--{{ $key }}
   labels:
     softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $key }}
   {{- with $.Values.labels }}
