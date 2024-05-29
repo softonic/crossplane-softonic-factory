@@ -292,4 +292,3 @@ dnsMappings:
     domains:
       - "softonic.pl"
       - "*.softonic.pl"
-

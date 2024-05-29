@@ -48,7 +48,6 @@ spec:
     {{- with $value.autoscaling }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-    initialNodeCount: 1
 {{- end }}
   providerConfigRef:
     name: {{ $providerConfigRefName }}
