@@ -16,6 +16,13 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if $value.deletionPolicy }}
+  deletionPolicy: {{ $value.deletionPolicy }}
+  {{- end }}
+  {{- with $value.managementPolicies }}
+  managementPolicies:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   providerConfigRef:
     name: {{ $.Values.providerConfigRef }}
   forProvider:

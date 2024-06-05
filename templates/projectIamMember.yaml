@@ -18,7 +18,13 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  deletionPolicy: {{ required "Requires the deletionPolicy value to be Delete or Orphan" $value.deletionPolicy }}
+  {{- if $value.deletionPolicy }}
+  deletionPolicy: {{ $value.deletionPolicy }}
+  {{- end }}
+  {{- with $value.managementPolicies }}
+  managementPolicies:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   forProvider:
 {{- if $value.member }}
     member: {{ $value.member }}

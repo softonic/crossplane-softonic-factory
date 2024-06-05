@@ -4,20 +4,29 @@ providerConfigRef: crossplane-loadbalancer-creds
 
 GlobalAddress:
   external-address:
-    deletionPolicy: Orphan
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     description: Just an example
     addressType: EXTERNAL
 
 ManagedSSLCertificate:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     domains:
     - test.example.com.
     - xxx.example.com.
 
 HealthCheck:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     checkIntervalSec: 1
     tcpHealthCheck:
       port: 80
@@ -28,7 +37,10 @@ HealthCheck:
 
 BackendService:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     healthChecksSelector: my-external-name
     loadBalancingScheme: "EXTERNAL"
     backend:
@@ -45,7 +57,10 @@ URLMap:
     deletionPolicy: Orphan
     defaultService: my-external-name
   my-external-name-redirect:
-    deletionPolicy: Orphan
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     defaultUrlRedirect:
       httpsRedirect: true
       stripQuery: false
@@ -53,12 +68,18 @@ URLMap:
 
 TargetHTTPProxy:
   my-external-name-80:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     urlMapSelector: my-external-name-redirect
 
 TargetHTTPSProxy:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     quicOverride: "ENABLE"
     sslCertificates: my-external-name
     urlMapSelector: my-external-name
@@ -67,7 +88,10 @@ TargetHTTPSProxy:
 
 GlobalForwardingRule:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     ipAddressSelector: external-address
     ipProtocol: TCP
     loadBalancingScheme: EXTERNAL
@@ -76,14 +100,20 @@ GlobalForwardingRule:
 
 SSLPolicy:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     mode: COMPATIBLE
     minTlsVersion: TLS_1_2
     description: "Just an example"
 
 SecurityPolicy:
   my-external-name:
-    deletionPolicy: Delete
+    managementPolicies:
+      - Create
+      - Update
+      - Observe
     rule:
       - description: "Ban IPs with more than 1000 reqs/min"
         action: "rate_based_ban"
