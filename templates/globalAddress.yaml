@@ -23,6 +23,12 @@ spec:
   managementPolicies:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+  {{- if and (not $value.deletionPolicy) (not $value.managementPolicies) }}
+  managementPolicies:
+    - Create
+    - Update
+    - Observe
+  {{- end }}
   forProvider:
     {{- if $value.description }}
     description: {{ $value.description }}
