@@ -16,7 +16,20 @@ metadata:
   {{- end }}
   name: {{ include "crossplane.fullname" $ }}--{{ $key }}
 spec:
-  deletionPolicy: {{ required "Requires the deletionPolicy value to be Delete or Orphan" $value.deletionPolicy }}
+  {{- if $value.deletionPolicy }}
+  deletionPolicy: {{ $value.deletionPolicy }}
+  {{- end }}
+  {{- with $value.managementPolicies }}
+  managementPolicies:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- if and (not $value.deletionPolicy) (not $value.managementPolicies) }}
+  deletionPolicy: Orphan
+  managementPolicies:
+    - Create
+    - Update
+    - Observe
+  {{- end }}
   forProvider:
     profile: {{ $value.mode }}
     minTlsVersion: {{ $value.minTlsVersion }}
