@@ -24,6 +24,7 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- if and (not $value.deletionPolicy) (not $value.managementPolicies) }}
+  deletionPolicy: Orphan
   managementPolicies:
     - Create
     - Update
