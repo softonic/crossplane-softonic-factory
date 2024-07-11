@@ -18,10 +18,20 @@ metadata:
   {{- end }}
 spec:
   deletionPolicy: null
+  {{- if $value.deletionPolicy }}
+  deletionPolicy: {{ $value.deletionPolicy }}
+  {{- end }}
+  {{- with $value.managementPolicies }}
   managementPolicies:
-    {{- with $value.managementPolicies }}
-      {{- toYaml . | nindent 4 }}
-    {{- end }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- if and (not $value.deletionPolicy) (not $value.managementPolicies) }}
+  deletionPolicy: Orphan
+  managementPolicies:
+    - Create
+    - Update
+    - Observe
+  {{- end }}
   forProvider:
     networkingMode: VPC_NATIVE
     costManagementConfig:
