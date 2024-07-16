@@ -38,9 +38,10 @@ spec:
     - enabled: true
     defaultMaxPodsPerNode: 110
     clusterIpv4Cidr: {{ $value.clusterIpv4Cidr }}
+    {{- with $value.ipAllocationPolicy }}
     ipAllocationPolicy:
-    - clusterIpv4CidrBlock: {{ $value.clusterIpv4Cidr }}
-    #- servicesIpv4CidrBlock: "10.236.0.0/20"
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
     masterAuth:
     - clientCertificateConfig:
       - issueClientCertificate: true
