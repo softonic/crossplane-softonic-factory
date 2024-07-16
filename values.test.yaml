@@ -181,6 +181,8 @@ projects:
           network: "softonic-network-eu-west"
           subnetwork: "bigbang"
           minMasterVersion: 1.26.15-gke.1090000
+          ipAllocationPolicy:
+          - servicesSecondaryRangeName: "services"
 
 DatabaseInstances:
   db-name:
