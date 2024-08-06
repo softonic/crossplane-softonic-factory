@@ -179,6 +179,12 @@ projects:
           description: "EU cluster Product"
           location: europe-west1-b
           network: "softonic-network-eu-west"
+          releaseChannel:
+            - channel: UNSPECIFIED
+          gatewayApiConfig:
+           - channel: CHANNEL_STANDARD
+          networkPolicy:
+            - enabled: false
           subnetwork: "bigbang"
           minMasterVersion: 1.26.15-gke.1090000
           ipAllocationPolicy:

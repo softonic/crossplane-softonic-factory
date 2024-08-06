@@ -51,9 +51,10 @@ spec:
     {{- end }}
     serviceExternalIpsConfig:
     - enabled: true
+    {{- with $value.networkPolicy }}
     networkPolicy:
-    - provider: CALICO
-      enabled: true
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
     description: {{ $value.description }}
     location: {{ $value.location }}
     enableKubernetesAlpha: false
@@ -72,8 +73,14 @@ spec:
         - disabled: true
     network: {{ $value.network }}
     subnetwork: {{ $value.subnetwork }}
+    {{- with $value.releaseChannel }}
     releaseChannel:
-    - channel: UNSPECIFIED
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- with $value.gatewayApiConfig }}
+    gatewayApiConfig:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
     clusterAutoscaling:
     - autoProvisioningDefaults:
       - management:
