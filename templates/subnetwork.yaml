@@ -1,0 +1,44 @@
+{{- range $projectName, $project := .Values.projects }}
+{{- range $providerConfigRefName, $providerConfigRef := $project }}
+{{- range $resourceName, $value := $providerConfigRef.Subnetworks }}
+{{- $mergedAnnotations := mergeOverwrite dict $.Values.annotations (default dict $value.annotations) }}
+---
+apiVersion: compute.gcp.upbound.io/v1beta1
+kind: Subnetwork
+metadata:
+  name: {{ $resourceName }}
+  labels:
+    softonic.io/crossplane: {{ include "crossplane.fullname" $ }}--{{ $resourceName }}
+  {{- with $.Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  annotations:
+  {{- with $mergedAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if $value.deletionPolicy }}
+  deletionPolicy: {{ $value.deletionPolicy }}
+  {{- end }}
+  {{- with $value.managementPolicies }}
+  managementPolicies:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- if and (not $value.deletionPolicy) (not $value.managementPolicies) }}
+  deletionPolicy: Orphan
+  managementPolicies:
+    - Create
+    - Update
+    - Observe
+  {{- end }}
+  forProvider:
+    project: "{{ $projectName }}"
+    ipCidrRange: {{ $value.ipRange }}
+    region: {{ $value.region }}
+    network: {{ $value.network }}
+    stackType: {{ $value.stackType }}
+  providerConfigRef:
+    name: {{ $providerConfigRefName }}
+{{- end }}
+{{- end }}
+{{- end }}
