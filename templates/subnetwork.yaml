@@ -37,6 +37,10 @@ spec:
     region: {{ $value.region }}
     network: {{ $value.network }}
     stackType: {{ $value.stackType }}
+  {{- with $value.secondaryRange }}
+    secondaryIpRange:
+    {{- toYaml . | nindent 6 }}
+  {{- end }}
   providerConfigRef:
     name: {{ $providerConfigRefName }}
 {{- end }}
