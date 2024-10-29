@@ -158,6 +158,14 @@ projects:
           bucket: "sft-grafana-prod"
           member: "serviceAccount:test@kubertonic.iam.gserviceaccount.com"
           role: "projects/kubertonic/roles/softonic_storage_admin"
+      BucketAccessControl:
+        storage-proxy-assets:
+          enabled: true
+          deletionPolicy: Orphan
+          providerConfigRef: crossplane-bucket-creds
+          bucket: "storage-proxy-assets"
+          entity: allUsers
+          role: READER
       Clusters:
         product-europe:
           managementPolicies:
